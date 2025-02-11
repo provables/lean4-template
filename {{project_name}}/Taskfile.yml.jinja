@@ -19,7 +19,7 @@ tasks:
     generates:
       - .lake/build/doc/{{ project_name_pascal_case }}.html
     cmds:
-      - lake -R -Kenv=dev build {{ project_name_pascal_case }}:docs
+      - DOCGEN_SRC="file" lake -R -Kenv=dev build {{ project_name_pascal_case }}:docs
     deps:
       - get-cache
 
