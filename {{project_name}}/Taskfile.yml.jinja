@@ -55,6 +55,7 @@ tasks:
     cmds:
       - cp blueprint/print/print.pdf home_page/blueprint.pdf
       - rsync -av blueprint/web/ home_page/blueprint/
+      - rsync -av .lake/build/doc/ home_page/docs
       - cd home_page && bundle exec jekyll build
     deps:
       - build-docs
