@@ -1,0 +1,52 @@
+# questions
+project_name:
+    type: str
+    help: Project name? (please, use kebab-case)
+    validator: >-
+        {% if not (project_name | regex_search('^[a-z][a-z0-9\-]*$')) %}
+        project_name must start with a letter, followed by zero or more letters, digits, or dashes all lowercase.
+        {% endif %}
+
+authors:
+    type: str
+    default: ""
+    help: Authors (names separated by comma)
+
+github_project_name:
+    type: str
+    help: Github project name (leave empty to disable Github urls)
+    default: ""
+
+github_user:
+    type: str
+    help: Github user or organization
+    when: "{{ github_project_name != '' }}"
+    validator: >-
+        {% if not github_user %}
+        Github user cannot be empty when using Github urls
+        {% endif %}
+
+project_name_pascal_case:
+    type: str
+    default: "{{ project_name.replace('-', ' ').title().replace(' ', '') }}"
+    when: false
+
+project_name_title_case:
+    type: str
+    default: "{{ project_name.replace('-', ' ').title() }}"
+    when: false
+
+github_url:
+    type: str
+    default: >-
+        https://{% if github_project_name -%}
+            {{ github_user }}.github.io/{{ github_project_name }}
+        {%- else -%}
+            example.org/{{ project_name }}
+        {%- endif %}
+    when: false
+
+authors_list:
+    type: yaml
+    default: "[{{ authors }}]"
+    when: false
