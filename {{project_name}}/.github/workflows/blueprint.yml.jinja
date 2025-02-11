@@ -1,3 +1,4 @@
+{% raw %}
 name: Compile blueprint
 
 on:
@@ -32,10 +33,10 @@ jobs:
 
       - name: Get Mathlib cache
         run: ~/.elan/bin/lake exe cache get || true
-
+{% endraw %}
       - name: Build project
         run: ~/.elan/bin/lake build {{ project_name_pascal_case }}
-
+{% raw %}
       - name: Cache mathlib API docs
         uses: actions/cache@v4
         with:
@@ -48,13 +49,16 @@ jobs:
             .lake/build/doc/declarations
             .lake/build/doc/find
             .lake/build/doc/*.*
+{% endraw %}
             !.lake/build/doc/declarations/declaration-data-{{ project_name_pascal_case }}*
+{% raw %}
           key: MathlibDoc-${{ hashFiles('lake-manifest.json') }}
           restore-keys: MathlibDoc-
 
       - name: Build project API documentation
+{% endraw %}
         run: ~/.elan/bin/lake -R -Kenv=dev build {{ project_name_pascal_case }}:docs
-      
+{% raw %} 
       - name: Check for `home_page` folder # this is meant to detect a Jekyll-based website
         id: check_home_page
         run: |
@@ -124,4 +128,4 @@ jobs:
 
       - name: Make sure the API documentation cache works
         run: mv home_page/docs .lake/build/doc
-     
+{% endraw %} 
