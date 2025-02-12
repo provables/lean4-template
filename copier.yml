@@ -1,4 +1,4 @@
-# questions
+# interactive questions
 project_name:
     type: str
     help: Project name? (please, use kebab-case)
@@ -26,6 +26,7 @@ github_user:
         Github user cannot be empty when using Github urls
         {% endif %}
 
+# computed values
 project_name_pascal_case:
     type: str
     default: "{{ project_name.replace('-', ' ').title().replace(' ', '') }}"
