@@ -24,7 +24,7 @@
               printf "* \`%s\`" "$(realpath "$DEST")"
             ) | bat -f -l md --style=grid
             copier copy --vcs-ref=HEAD gh:provables/lean4-template "$DEST"
-            rm -rf "$DEST/flake.*"
+            rm -rf "$DEST"/flake.*
             PROJ_NAME=$(yq -r '.project_name' < "$DEST"/.copier-answers.yml)
             GITDIR="$DEST/$PROJ_NAME"
             (
