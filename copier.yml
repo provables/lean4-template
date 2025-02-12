@@ -1,3 +1,8 @@
+_exclude:
+    - ".git"
+    - "copier.yml"
+    - "flake.*"
+
 # interactive questions
 project_name:
     type: str
