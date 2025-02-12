@@ -33,8 +33,7 @@
             ) | bat -f -l md --style=grid
             gum confirm "Continue?" || exit 1
             cd "$GITDIR"
-            git init
-            git branch -M main
+            git init -b main
             git add .
           '';
         };
