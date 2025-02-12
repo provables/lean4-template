@@ -12,9 +12,27 @@
           runtimeInputs = with pkgs; [
             copier
             git
+            bat
+            gum
+            yq
           ];
           text = ''
-            copier copy gh:provables/lean4-template .
+            DEST="''${1:-.}"
+            (
+              printf "Will create the Lean4 project inside the directory:\n"
+              printf "* \`%s\`" "$(realpath "$DEST")"
+            ) | bat -f -l md --style=grid
+            copier copy --vcs-ref=HEAD gh:provables/lean4-template "$DEST"
+            PROJ_NAME=$(yq -r '.project_name' < "$DEST"/.copier-answers.yml)
+            GITDIR="$DEST/$PROJ_NAME"
+            (
+              printf "Will initialize \`git\` in \`%s\`,\n" "$GITDIR"
+              printf "and will add the generated project."
+            ) | bat -f -l md --style=grid
+            gum confirm "Continue?" || exit 1
+            cd "$GITDIR"
+            git init
+            git add .
           '';
         };
       in
