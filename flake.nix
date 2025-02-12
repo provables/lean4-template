@@ -14,7 +14,7 @@
             git
           ];
           text = ''
-            copier copy gh:waltermoreira/lean4-template .
+            copier copy gh:provables/lean4-template .
           '';
         };
       in
