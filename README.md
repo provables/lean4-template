@@ -47,6 +47,11 @@ $ task -a          # show all tasks available
 The task manager ensures `mathlib` cache is available, and in general tries to minimize
 the work for every step.
 
+## TODO
+
+- Allow updating the generated project when the template gets updated.
+- Allow specifying the `lean-toolchain` (currently hard-coded to 4.15).
+
 # License
 
 MIT
