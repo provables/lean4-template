@@ -18,6 +18,7 @@
           ];
           text = ''
             DEST="''${1:-.}"
+            mkdir -p "$DEST"
             (
               printf "Will create the Lean4 project inside the directory:\n"
               printf "* \`%s\`" "$(realpath "$DEST")"
